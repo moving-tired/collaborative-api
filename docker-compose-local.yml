@@ -1,0 +1,23 @@
+version: '3.1'
+
+services:
+  redis:
+    container_name: voucher_service_redis
+    image: redis:5.0.5-alpine
+    ports:
+      - '6379:6379'
+  toxiproxy:
+    container_name: toxiproxy
+    build: ./local-env/resilience-testing/toxiproxy
+    links:
+      - "redis:redis"
+    ports:
+      - "7379:6379"
+    healthcheck:
+      test: ["CMD", "nc", "-vz", "localhost", "8474"]
+      interval: 2s
+      timeout: 5s
+      retries: 3
+
+networks:
+  configuration_service_net:

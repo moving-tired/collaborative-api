@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    ​
+    <!-- LOGGER CONFIGURATIONS -->
+    <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+    <springProperty name="ENVIRONMENT" source="spring.profiles"/>
+    <springProperty name="console_plain_text_logging" source="console_plain_text_logging_encoder" defaultValue="true"/>
+
+    <property name="LOG_FILE" value="${BUILD_FOLDER:-target}/logs/${springAppName}"/>​
+
+    <!-- Appender to log to console -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <if condition='property("console_plain_text_logging").contains("true")'>
+            <then>
+                <encoder>
+                    <pattern>%black(%d{yyyy-MM-dd HH:mm:ss})[%highlight(%-5p)][%blue(%c{1}:%L)]-[%X{transaction_key:-}] - %m%n
+                    </pattern>
+                    <charset>utf8</charset>
+                </encoder>
+            </then>
+            <else>
+                <!--<destination>${TCP_LOGGING_DESTINATION}</destination>-->
+                <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+                    <includeMdcKeyName>transaction_key</includeMdcKeyName>
+                </encoder>
+            </else>
+        </if>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="stdout"/>
+    </root>
+
+    <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter">
+        <level value="DEBUG"/>
+    </logger>
+</configuration>

@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: collaborative-helper-api
+  main:
+    banner-mode: "off"
+  jmx:
+    enabled: true
+  resources:
+    add-mappings: false
+  mvc:
+    throw-exception-if-no-handler-found: true
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 200MB
+      max-request-size: 215MB
+
+console_plain_text_logging_encoder: true
+
+management:
+  server:
+    port: 8080
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+    metrics:
+      enabled: true
+      show-details: always
+    prometheus:
+      enabled: true
+  endpoints:
+    enabled-by-default: false
+    web:
+      exposure:
+        include: health, info, metrics, prometheus
+      base-path: /actuator
+  metrics:
+    use-global-registry: false
+
