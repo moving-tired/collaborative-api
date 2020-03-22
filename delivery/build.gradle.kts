@@ -24,7 +24,7 @@ configure<DependencyManagementExtension> {
 val swaggerDepVersion = "3.0.0-SNAPSHOT"
 
 dependencies {
-    implementation(project(":core"))
+    implementation(project(":model"))
     implementation(project(":infrastructure"))
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib-jdk8"))
@@ -50,7 +50,7 @@ dependencies {
     implementation("io.springfox:springfox-spring-webmvc:$swaggerDepVersion")
     implementation("io.springfox:springfox-bean-validators:$swaggerDepVersion")
 
-    testImplementation(project(":core").dependencyProject.sourceSets.test.get().output)
+    testImplementation(project(":model").dependencyProject.sourceSets.test.get().output)
     testImplementation("org.springframework.boot:spring-boot-starter-webflux") {
         exclude(module = "junit")
     }

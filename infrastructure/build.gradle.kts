@@ -7,7 +7,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":core"))
+    implementation(project(":model"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("com.github.kittinunf.fuel:fuel:2.2.1")
@@ -22,7 +22,7 @@ dependencies {
     implementation("com.fasterxml.jackson.core:jackson-core:$jacksonVersion")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     testImplementation("com.github.tomakehurst:wiremock-jre8:2.25.0")
-    testImplementation(project(":core").dependencyProject.sourceSets.test.get().output)
+    testImplementation(project(":model").dependencyProject.sourceSets.test.get().output)
     testImplementation("com.h2database:h2:1.4.200")
 }
 

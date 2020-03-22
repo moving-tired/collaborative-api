@@ -1,5 +1,5 @@
 rootProject.name = 'collaborative-helper-api'
 include 'delivery'
-include 'core'
+include 'model'
 include 'infrastructure'
 
